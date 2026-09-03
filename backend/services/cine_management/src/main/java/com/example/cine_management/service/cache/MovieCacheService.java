@@ -7,6 +7,7 @@ import com.example.cine_management.pojo.MovieDetailDto;
 import com.example.cine_management.repository.*;
 import com.example.cine_management.repository.child.ChildMovieRepository;
 import jakarta.transaction.Transactional;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Getter
 public class MovieCacheService {
 
     private final ChildMovieRepository childMovieRepository;
@@ -61,4 +63,5 @@ public class MovieCacheService {
                 .voteSum(movie.getVoteSum())
                 .build();
     }
+
 }

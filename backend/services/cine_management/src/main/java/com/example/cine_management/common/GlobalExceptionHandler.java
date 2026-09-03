@@ -2,6 +2,7 @@ package com.example.cine_management.common;
 
 import com.example.cine_management.errors.NotFoundObject;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -13,6 +14,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler{
     @ExceptionHandler(NotFoundObject.class)
     public ResponseEntity<ApiResponse<Void>> notFoundExceptionHandler(Exception ex) {
@@ -30,7 +32,7 @@ public class GlobalExceptionHandler{
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> commonExceptionHandler(Exception ex) {
-        ex.printStackTrace();
+        log.info(ex.getMessage());
         ApiResponse<Void> response = ApiResponse.<Void>builder()
                 .success(false)
                 .httpCode(503)
