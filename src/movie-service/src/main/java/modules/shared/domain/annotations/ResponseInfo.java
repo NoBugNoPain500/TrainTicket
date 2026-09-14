@@ -1,4 +1,4 @@
-package modules.shared.annotation;
+package modules.shared.domain.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ResponseData {
+public @interface ResponseInfo {
     String value() default "Success";
     int businessCode() default 1000;
 }

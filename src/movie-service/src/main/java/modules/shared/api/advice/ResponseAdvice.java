@@ -1,6 +1,6 @@
-package modules.shared.config;
+package modules.shared.api.advice;
 
-import modules.shared.entity.ApiResponse;
+import modules.shared.api.dto.ApiResponse;
 import org.jspecify.annotations.Nullable;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;

@@ -1,4 +1,4 @@
-package modules.shared.entity;
+package modules.shared.api.dto;
 
 public class ApiResponse<T> {
 
