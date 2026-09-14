@@ -1,8 +1,0 @@
-name: CineLock
-
-include: 
-  - docker-compose.db.yaml
-  - docker-compose.redis.yaml
-networks:
-  cinelock_network:
-    driver: bridge
