@@ -37,4 +37,12 @@ public class Nation {
     public void setNationCode(String nationCode) {
         this.nationCode = nationCode;
     }
+
+    public static Nation createNation(String name, String code) {
+        return new Nation(null, name, code);
+    }
+
+    public static Nation reconstitute(int id, String name, String code) {
+        return new Nation(id, name, code);
+    }
 }

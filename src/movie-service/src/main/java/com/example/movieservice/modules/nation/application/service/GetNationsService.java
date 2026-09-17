@@ -1,7 +1,8 @@
-package com.example.movieservice.modules.nation.application.usecase;
+package com.example.movieservice.modules.nation.application.service;
 
 import com.example.movieservice.modules.nation.application.dto.response.GetNationsResult;
 import com.example.movieservice.modules.nation.application.dto.response.NationResult;
+import com.example.movieservice.modules.nation.application.usecase.GetNationsUseCase;
 import com.example.movieservice.modules.nation.domain.repository.NationRepository;
 
 import java.util.List;

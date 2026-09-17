@@ -1,8 +1,10 @@
-package com.example.movieservice.modules.shared.api.advice;
+package com.example.movieservice.modules.shared.presentation.rest.advice;
 
-import com.example.movieservice.modules.shared.api.dto.ApiResponse;
+import com.example.movieservice.modules.shared.domain.annotations.SuccessResponse;
+import com.example.movieservice.modules.shared.domain.utils.MessageResolver;
+import com.example.movieservice.modules.shared.presentation.rest.dto.ApiResponse;
 import com.example.movieservice.modules.shared.domain.annotations.NoWrap;
-import com.example.movieservice.modules.shared.domain.annotations.ResponseInfo;
+import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.core.MethodParameter;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
 
+    private final MessageResolver messageResolver;
 
     @Override
     public boolean supports(MethodParameter returnType,
@@ -25,21 +29,19 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public @Nullable Object beforeBodyWrite(@Nullable Object body,
-                                            MethodParameter returnType,
+                                            @NonNull MethodParameter returnType,
                                             @NonNull MediaType selectedContentType,
                                             @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
                                             @NonNull ServerHttpRequest request,
                                             @NonNull ServerHttpResponse response) {
-            ResponseInfo responseInfo = returnType.getMethodAnnotation(ResponseInfo.class);
-            if (responseInfo == null) {
-                return body;
-            }
-            int businessCode = responseInfo.businessCode();
-            String message = responseInfo.message();
-            return new ApiResponse<>(
-                    businessCode,
-                    message,
-                    body
-            );
+           if (body instanceof String) {
+               return body;
+           }
+           SuccessResponse successResponse = returnType.getMethodAnnotation(SuccessResponse.class);
+           String message = "Success";
+           if (successResponse != null) {
+               message = messageResolver.getMessage(successResponse.message());
+           }
+           return ApiResponse.success(message, body);
     }
 }

@@ -9,4 +9,6 @@ public interface NationRepository {
     List<Nation> getAll();
 
     void save(Nation nation);
+
+    Nation findById(int id);
 }

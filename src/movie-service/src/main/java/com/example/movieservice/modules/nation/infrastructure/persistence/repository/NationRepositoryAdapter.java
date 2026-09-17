@@ -1,5 +1,6 @@
 package com.example.movieservice.modules.nation.infrastructure.persistence.repository;
 
+import com.example.movieservice.modules.nation.infrastructure.persistence.entity.NationJpaEntity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import com.example.movieservice.modules.nation.domain.entity.Nation;
@@ -30,6 +31,16 @@ public class NationRepositoryAdapter implements NationRepository {
 
     @Override
     public void save(Nation nation) {
+        nationRepository.save(
+                mapper.fromDomain(
+                        nation
+                )
+        );
+    }
 
+    @Override
+    public Nation findById(int id) {
+         NationJpaEntity jpaEntity = nationRepository.getByNationId(id).orElseThrow();
+         return mapper.toDomain(jpaEntity);
     }
 }
